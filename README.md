@@ -1,2 +1,6 @@
 # lock-and-store
-Lock and Store App 
+A private tool for managing the belongings of a client stored via an external storage service.
+
+
+## Instructions
+> npm install
