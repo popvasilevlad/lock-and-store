@@ -1,0 +1,19 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    types: [opened]
+    
+permissions:
+  pull-requests: write
+  
+jobs:
+  enforce_code_review:
+    name: Add PR instructions comment
+    runs-on: ubuntu-latest
+    steps:
+      -  run: gh pr comment "$PR_URL" --body "You have successfully opened a PR. Ensure you get at least one approve and all the tests pass before merging."
+         env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+           PR_URL: ${{ github.event.purr_requests.html_url }}
+   
