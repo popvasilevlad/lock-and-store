@@ -4,3 +4,5 @@ A private tool for managing the belongings of a client stored via an external st
 
 ## Instructions
 TBD
+
+## Observations
