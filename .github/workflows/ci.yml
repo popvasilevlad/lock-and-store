@@ -2,7 +2,7 @@ name: CI Pipeline
 
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, synchronize, closed]
     
 permissions:
   pull-requests: write
@@ -36,6 +36,20 @@ jobs:
 
       - name: Add comment to PR
         run:  gh pr comment "$PR_URL" --body "You have successfully updated a PR. Please ensure again that you get at least one approval and all the tests pass before merging."
+
+  pr_closed:
+    if: github.event.action == 'closed'
+    name: Comment on PR closed
+    runs-on: ubuntu-latest
+    env:
+       PR_URL: ${{ github.event.pull_request.html_url }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Add comment to PR
+        run: gh pr comment "$PR_URL" --body "You have successfully closed this PR. Please add a comment motivating your decision."
+    
         
      
      
