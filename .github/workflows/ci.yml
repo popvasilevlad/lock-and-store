@@ -12,8 +12,12 @@ jobs:
     name: Add PR instructions comment
     runs-on: ubuntu-latest
     steps:
-      -  run: gh pr comment "$PR_URL" --body "You have successfully opened a PR. Ensure you get at least one approval and all the tests pass before merging."
-         env:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Add comment to PR
+        env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-           PR_URL: ${{ github.event.pull_requests.html_url }}
+           PR_URL: ${{ github.event.pull_request.html_url }}
+        run: gh pr comment "$PR_URL" --body "You have successfully opened a PR. Ensure you get at least one approval and all the tests pass before merging."
    
